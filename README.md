@@ -35,3 +35,11 @@ cd backend
 cp .env.example .env   # update if needed
 npm install
 npm run dev
+
+store_ratings_codespace/
+├── backend/          # Express + Sequelize API
+├── frontend/         # React app
+├── .devcontainer/    # Codespaces setup
+├── docker-compose.yml
+├── README.md
+└── .gitignore
