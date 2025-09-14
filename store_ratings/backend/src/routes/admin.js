@@ -1,0 +1,12 @@
+const express = require('express');
+const router = express.Router();
+const admin = require('../controllers/adminController');
+const auth = require('../middleware/auth');
+const roleCheck = require('../middleware/roleCheck');
+router.use(auth);
+router.use(roleCheck('SystemAdmin'));
+router.get('/dashboard', admin.dashboard);
+router.post('/users', admin.createUser);
+router.get('/users', admin.listUsers);
+router.get('/stores', admin.listStores);
+module.exports = router;

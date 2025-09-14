@@ -1,0 +1,1 @@
+module.exports = function (roles = []) { if (typeof roles === 'string') roles = [roles]; return (req, res, next) => { const userRole = req.user.role; if (!roles.length || roles.includes(userRole)) return next(); return res.status(403).json({ message: 'Forbidden' }); }; };

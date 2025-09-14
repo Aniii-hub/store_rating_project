@@ -1,0 +1,15 @@
+const Sequelize = require('sequelize');
+const sequelize = require('../config/database');
+const Role = require('./role');
+const User = require('./user');
+const Store = require('./store');
+const Rating = require('./rating');
+const models = { Role: Role.init(sequelize, Sequelize), User: User.init(sequelize, Sequelize), Store: Store.init(sequelize, Sequelize), Rating: Rating.init(sequelize, Sequelize) };
+models.Role.hasMany(models.User, { foreignKey: 'roleId' });
+models.User.belongsTo(models.Role, { foreignKey: 'roleId' });
+models.User.hasMany(models.Rating, { foreignKey: 'userId' });
+models.Rating.belongsTo(models.User, { foreignKey: 'userId' });
+models.Store.hasMany(models.Rating, { foreignKey: 'storeId' });
+models.Rating.belongsTo(models.Store, { foreignKey: 'storeId' });
+models.Store.belongsTo(models.User, { as: 'owner', foreignKey: 'ownerId' });
+module.exports = { ...models, sequelize };

@@ -1,0 +1,10 @@
+const express = require('express');
+const router = express.Router();
+const storeCtrl = require('../controllers/storeController');
+const auth = require('../middleware/auth');
+const roleCheck = require('../middleware/roleCheck');
+router.get('/', storeCtrl.listStoresPublic);
+router.post('/', auth, roleCheck(['SystemAdmin','StoreOwner']), storeCtrl.createStore);
+router.post('/:storeId/ratings', auth, roleCheck('Normal'), storeCtrl.submitRating);
+router.get('/:storeId/ratings', auth, roleCheck(['SystemAdmin','StoreOwner']), storeCtrl.listRatingsForStore);
+module.exports = router;
